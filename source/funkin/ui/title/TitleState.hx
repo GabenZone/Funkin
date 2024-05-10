@@ -51,6 +51,8 @@ class TitleState extends MusicBeatState
   var lastBeat:Int = 0;
   var swagShader:ColorSwap;
 
+  var onceTween = false;
+
   var video:Video;
   var netStream:NetStream;
   var overlay:Sprite;
@@ -281,10 +283,11 @@ class TitleState extends MusicBeatState
     if (FlxG.keys.pressed.D) outlineShaderShit.funnyX += 1;
     // outlineShaderShit.xPos.value[0] += 1;
 
-    if (FlxG.keys.justPressed.Y)
+    if (FlxG.keys.justPressed.Y && onceTween == false)
     {
-      FlxTween.tween(FlxG.stage.window, {x: FlxG.stage.window.x + 300}, 1.4, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.35});
-      FlxTween.tween(FlxG.stage.window, {y: FlxG.stage.window.y + 100}, 0.7, {ease: FlxEase.quadInOut, type: PINGPONG});
+      onceTween = true;
+      var tweenX:FlxTween = FlxTween.tween(FlxG.stage.window, {x: FlxG.stage.window.x + 300}, 1.4, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.35});
+      var tweenY:FlxTween = FlxTween.tween(FlxG.stage.window, {y: FlxG.stage.window.y + 100}, 0.7, {ease: FlxEase.quadInOut, type: PINGPONG});
     }
 
     if (FlxG.sound.music != null) Conductor.instance.update(FlxG.sound.music.time);
